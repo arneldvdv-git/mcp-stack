@@ -130,6 +130,56 @@ Create `.windsurf/settings.json` or update your Windsurf config:
 }
 ```
 
+## Configuring Cursor
+
+Cursor supports MCP servers through its settings. Configure it by:
+
+### Option 1: Using Cursor Settings UI
+1. Open **Cursor Settings** (Cmd/Ctrl + ,)
+2. Search for "MCP"
+3. Click **"Edit in settings.json"** in the MCP Servers section
+4. Add the server configurations
+
+### Option 2: Manual Configuration
+Edit `~/.cursor/settings.json` (or your Cursor config path):
+
+```json
+{
+  "mcp": {
+    "servers": [
+      {
+        "name": "supabase-mcp",
+        "url": "http://localhost:3000",
+        "enabled": true
+      },
+      {
+        "name": "brave-search-mcp",
+        "url": "http://localhost:3001",
+        "enabled": true
+      },
+      {
+        "name": "crawl4ai-mcp",
+        "url": "http://localhost:3002",
+        "enabled": true
+      },
+      {
+        "name": "github-mcp",
+        "url": "http://localhost:3003",
+        "enabled": true
+      }
+    ]
+  }
+}
+```
+
+### Restart Cursor
+After adding the configurations, restart Cursor for the MCP servers to be recognized and connected.
+
+### Verify Connection
+- Open Cursor's integrated terminal
+- MCPs should appear in the context menu or be available for prompts
+- Check Cursor's output/debug console for any connection errors
+
 ## Troubleshooting
 
 ### Services not starting
