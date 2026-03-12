@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # Supabase MCP - PostgreSQL backend with auth and real-time capabilities
+  supabase-mcp:
+    image: supabase/supabase:latest
+    container_name: supabase-mcp
+    ports:
+      - "54321:5432"  # PostgreSQL
+      - "3000:3000"   # Supabase Studio
+      - "8000:8000"   # API Gateway
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      JWT_SECRET: your-super-secret-jwt-token-change-this
+      ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4YW1wbGUiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNTc5NjgwMCwiZXhwIjo5OTk5OTk5OTk5fQ.PLACEHOLDER
+      SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4YW1wbGUiLCJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjE1Nzk2ODAwLCJleHAiOjk5OTk5OTk5OTl9.PLACEHOLDER
+    networks:
+      - mcp-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - supabase_postgres_data:/var/lib/postgresql/data
+
+  # Brave Search MCP - Web search capabilities
+  brave-search-mcp:
+    image: node:18-alpine
+    container_name: brave-search-mcp
+    ports:
+      - "3001:3001"
+    environment:
+      BRAVE_API_KEY: ${BRAVE_API_KEY:-your-brave-api-key}
+      MCP_PORT: 3001
+    working_dir: /app
+    volumes:
+      - ./brave-search-mcp:/app
+    command: >
+      sh -c "npm install && npm start"
+    networks:
+      - mcp-network
+    depends_on:
+      - supabase-mcp
+
+  # Crawl4AI MCP - Web crawling and scraping capabilities
+  crawl4ai-mcp:
+    image: uncloudedai/crawl4ai:latest
+    container_name: crawl4ai-mcp
+    ports:
+      - "3002:8000"
+    environment:
+      CRAWL4AI_PORT: 8000
+      LOG_LEVEL: info
+    networks:
+      - mcp-network
+    volumes:
+      - crawl4ai_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Github MCP - GitHub integration for repository access and operations
+  github-mcp:
+    image: node:18-alpine
+    container_name: github-mcp
+    ports:
+      - "3003:3003"
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-your-github-token}
+      MCP_PORT: 3003
+      NODE_ENV: production
+    working_dir: /app
+    volumes:
+      - ./github-mcp:/app
+    command: >
+      sh -c "npm install && npm start"
+    networks:
+      - mcp-network
+    depends_on:
+      - supabase-mcp
+
+networks:
+  mcp-network:
+    driver: bridge
+
+volumes:
+  supabase_postgres_data:
+  crawl4ai_data:
