@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Supabase MCP - PostgreSQL backend with auth and real-time capabilities
   supabase-mcp:
-    image: supabase/supabase:latest
+    image: supabase/studio:latest
     container_name: supabase-mcp
     ports:
       - "54321:5432"  # PostgreSQL
