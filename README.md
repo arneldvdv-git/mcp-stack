@@ -1,3 +1,6 @@
+# WORK IN PROGRESS
+
+
 # MCP Stack - Docker Compose Setup
 
 This docker-compose file sets up a complete MCP (Model Context Protocol) server stack with four essential services for local IDE integration (VS Code, Windsurf, etc.).
