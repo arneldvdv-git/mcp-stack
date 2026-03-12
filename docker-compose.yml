@@ -47,7 +47,7 @@ services:
 
   # Crawl4AI MCP - Web crawling and scraping capabilities
   crawl4ai-mcp:
-    image: uncloudedai/crawl4ai:latest
+    image: unclecode/crawl4ai:latest
     container_name: crawl4ai-mcp
     ports:
       - "3002:8000"
