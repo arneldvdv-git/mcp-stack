@@ -37,7 +37,8 @@ This docker-compose file sets up a complete MCP (Model Context Protocol) server 
 
 ### 1. Clone/Download this stack
 ```bash
-cd "c:\Users\A.vanderveen\AppData\Local\Programs\MCP stack"
+git clone https://github.com/arneldvdv-git/mcp-stack.git
+cd mcp-stack
 ```
 
 ### 2. Configure environment variables
