@@ -14,8 +14,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
       JWT_SECRET: your-super-secret-jwt-token-change-this
-      ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4YW1wbGUiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNTc5NjgwMCwiZXhwIjo5OTk5OTk5OTk5fQ.PLACEHOLDER
-      SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4YW1wbGUiLCJyb2xlIjoic2VydmljZV9yb2xlIiwiaWF0IjoxNjE1Nzk2ODAwLCJleHAiOjk5OTk5OTk5OTl9.PLACEHOLDER
+      ANON_KEY: .PLACEHOLDER
+      SERVICE_ROLE_KEY: .PLACEHOLDER
     networks:
       - mcp-network
     healthcheck:
